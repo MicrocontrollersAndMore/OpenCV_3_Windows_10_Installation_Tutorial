@@ -94,7 +94,7 @@ Public Class frmMain
             
         Next
         ibOriginal.Image = imgOriginal              'update image boxes on form
-        ibProcessed.Image = imgThresh            '
+        ibThresh.Image = imgThresh                  '
     End Sub
     
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

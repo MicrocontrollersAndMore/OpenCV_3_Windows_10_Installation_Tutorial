@@ -1,4 +1,4 @@
-CannyStillQt
+CannyStillWithQtGUI
 
 this is not an actual C++ file !!!
 

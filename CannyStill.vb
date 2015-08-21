@@ -6,6 +6,8 @@
 '
 'add the following components to your form:
 '
+'tlpOuter (TableLayoutPanel)
+'tlpInner (TableLayoutPanel)
 'btnOpenFile (Button)
 'lblChosenFile (Label)
 'ibOriginal (Emgu ImageBox)
@@ -21,6 +23,8 @@ Option Strict On        'restrict implicit data type conversions to only widenin
 
 Imports Emgu.CV                 'usual Emgu Cv imports
 Imports Emgu.CV.CvEnum          '
+Imports Emgu.CV.Structure       '
+Imports Emgu.CV.UI              '
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Class frmMain

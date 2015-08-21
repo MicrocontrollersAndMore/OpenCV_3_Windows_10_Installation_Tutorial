@@ -5,7 +5,7 @@
 'put this code in your main form, for example frmMain.vb
 '
 'add the following components to your form:
-'tableLayoutPanel (TableLayoutPanel) (name does not really matter for this, we will not need to refer to it in code)
+'tableLayoutPanel (TableLayoutPanel)
 'ibOriginal (Emgu ImageBox)
 'ibCanny (Emgu ImageBox)
 '

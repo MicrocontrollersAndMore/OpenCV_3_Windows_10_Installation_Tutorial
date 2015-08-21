@@ -5,6 +5,8 @@
 // put this code in your main form, for example frmMain.cs
 // add the following components to your form:
 //
+// tlpOuter (TableLayoutPanel)
+// tlpInner (TableLayoutPanel)
 // btnOpenFile (Button)
 // lblChosenFile (Label)
 // ibOriginal (Emgu ImageBox)

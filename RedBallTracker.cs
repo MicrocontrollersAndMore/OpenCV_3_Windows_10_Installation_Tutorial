@@ -1,4 +1,4 @@
-// RedBallTracker.vb
+// RedBallTracker.cs
 //
 // Emgu CV 3.0.0
 //
@@ -8,7 +8,7 @@
 // tlpOuter (TableLayoutPanel)
 // tlpInner (TableLayoutPanel)
 // ibOriginal (Emgu ImageBox)
-// ibProcessed (Emgu ImageBox)
+// ibThresh (Emgu ImageBox)
 // btnPauseOrResume (Button)
 // txtXYRadius (TextBox)
 //
@@ -30,7 +30,6 @@ using Emgu.CV;                  //
 using Emgu.CV.CvEnum;           // usual Emgu CV imports
 using Emgu.CV.Structure;        //
 using Emgu.CV.UI;               //
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace RedBallTracker1 {
@@ -109,7 +108,7 @@ namespace RedBallTracker1 {
                 CvInvoke.Circle(imgOriginal, new Point((int)circle.Center.X, (int)circle.Center.Y), 3, new MCvScalar(0, 255, 0), -1);
             }
             ibOriginal.Image = imgOriginal;
-            ibProcessed.Image = imgThresh;
+            ibThresh.Image = imgThresh;
         }
         
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -117,11 +116,11 @@ namespace RedBallTracker1 {
             if (blnCapturingInProcess == true) {                    // if we are currently processing an image, user just choose pause, so . . .
                 Application.Idle -= processFrameAndUpdateGUI;       // remove the process image function from the application's list of tasks
                 blnCapturingInProcess = false;                      // update flag variable
-                btnPauseOrResume.Text = " resume ";                 // update button text
+                btnPauseOrResume.Text = " Resume ";                 // update button text
             } else {                                                // else if we are not currently processing an image, user just choose resume, so . . .
                 Application.Idle += processFrameAndUpdateGUI;       // add the process image function to the application's list of tasks
                 blnCapturingInProcess = true;                       // update flag variable
-                btnPauseOrResume.Text = " pause ";                  // new button will offer pause option
+                btnPauseOrResume.Text = " Pause ";                  // new button will offer pause option
             }
         }
         

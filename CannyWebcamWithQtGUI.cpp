@@ -49,14 +49,9 @@ private:
 
     cv::VideoCapture capWebcam;         // Capture object to use with webcam
 
-    cv::Mat matOriginal;                // input image
-    cv::Mat matGrayscale;               // grayscale of input image
-    cv::Mat matBlurred;                 // intermediate blured image
-    cv::Mat matCanny;                   // Canny edge image
-
     QTimer* qtimer;             // timer for processFrameAndUpdateGUI()
 
-    QImage frmMain::matToQImage(cv::Mat mat);       // function prototype
+    QImage frmMain::convertOpenCVMatToQtQImage(cv::Mat mat);       // function prototype
 
     void frmMain::exitProgram();                    // function prototype
 };
@@ -104,36 +99,41 @@ void frmMain::exitProgram() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void frmMain::processFrameAndUpdateGUI() {
-    bool blnFrameReadSuccessfully = capWebcam.read(matOriginal);                    // get next frame from the webcam
+    cv::Mat imgOriginal;                // input image
+    cv::Mat imgGrayscale;               // grayscale of input image
+    cv::Mat imgBlurred;                 // intermediate blured image
+    cv::Mat imgCanny;                   // Canny edge image
 
-    if (!blnFrameReadSuccessfully || matOriginal.empty()) {                            // if we did not get a frame
+    bool blnFrameReadSuccessfully = capWebcam.read(imgOriginal);                    // get next frame from the webcam
+
+    if (!blnFrameReadSuccessfully || imgOriginal.empty()) {                            // if we did not get a frame
         QMessageBox::information(this, "", "unable to read from webcam \n\n exiting program\n");        // show error via message box
         exitProgram();                                                                              // and exit program
         return;                                                                                     //
     }
 
-    cv::cvtColor(matOriginal, matGrayscale, CV_BGR2GRAY);		// convert to grayscale
+    cv::cvtColor(imgOriginal, imgGrayscale, CV_BGR2GRAY);		// convert to grayscale
 
-    cv::GaussianBlur(matGrayscale,matBlurred, cv::Size(5, 5), 1.8);     // blur
+    cv::GaussianBlur(imgGrayscale, imgBlurred, cv::Size(5, 5), 1.8);     // blur
 
-    cv::Canny(matBlurred, matCanny, 50, 100);                           // get Canny edges
+    cv::Canny(imgBlurred, imgCanny, 50, 100);                           // get Canny edges
 
-    QImage qimgOriginal = matToQImage(matOriginal);             // convert from OpenCV Mat to Qt QImage
-    QImage qimgCanny = matToQImage(matCanny);                   //
+    QImage qimgOriginal = convertOpenCVMatToQtQImage(imgOriginal);             // convert from OpenCV Mat to Qt QImage
+    QImage qimgCanny = convertOpenCVMatToQtQImage(imgCanny);                   //
 
     ui->lblOriginal->setPixmap(QPixmap::fromImage(qimgOriginal));       // show images on form labels
     ui->lblCanny->setPixmap(QPixmap::fromImage(qimgCanny));             //
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-QImage frmMain::matToQImage(cv::Mat mat) {
-    if(mat.channels() == 1) {                           // if 1 channel (grayscale or black and white) image
-        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_Indexed8);     // return QImage
-    } else if(mat.channels() == 3) {                    // if 3 channel color image
-        cv::cvtColor(mat, mat, CV_BGR2RGB);             // flip colors
-        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);       // return QImage
+QImage frmMain::convertOpenCVMatToQtQImage(cv::Mat mat) {
+    if(mat.channels() == 1) {                   // if grayscale image
+        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_Indexed8);     // declare and return a QImage
+    } else if(mat.channels() == 3) {            // if 3 channel color image
+        cv::cvtColor(mat, mat, CV_BGR2RGB);     // invert BGR to RGB
+        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);       // declare and return a QImage
     } else {
-        qDebug() << "in openCVMatToQImage, image was not 1 channel or 3 channel, should never get here";
+        qDebug() << "in convertOpenCVMatToQtQImage, image was not 1 channel or 3 channel, should never get here";
     }
     return QImage();        // return a blank QImage if the above did not work
 }
