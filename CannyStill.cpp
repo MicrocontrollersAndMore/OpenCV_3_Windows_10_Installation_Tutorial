@@ -34,8 +34,8 @@ int main() {
 		200);						// high threshold
 
 	// declare windows
-	cv::namedWindow("Original", CV_WINDOW_AUTOSIZE);	// note: you can use CV_WINDOW_NORMAL which allows resizing the window
-	cv::namedWindow("Canny", CV_WINDOW_AUTOSIZE);		// or CV_WINDOW_AUTOSIZE for a fixed size window matching the resolution of the image
+	cv::namedWindow("imgOriginal", CV_WINDOW_AUTOSIZE);	// note: you can use CV_WINDOW_NORMAL which allows resizing the window
+	cv::namedWindow("imgCanny", CV_WINDOW_AUTOSIZE);		// or CV_WINDOW_AUTOSIZE for a fixed size window matching the resolution of the image
 	// CV_WINDOW_AUTOSIZE is the default
 	cv::imshow("imgOriginal", imgOriginal);		// show windows
 	cv::imshow("imgCanny", imgCanny);
