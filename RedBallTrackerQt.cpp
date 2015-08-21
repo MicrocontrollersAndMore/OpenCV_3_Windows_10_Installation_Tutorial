@@ -2,12 +2,11 @@ RedBallTrackerQt
 
 this is not an actual C++ file !!!
 
-this file is 3 files in one:
--the Qt project file (.pro)
+this file is 2 files in one:
 -the main form .h file (ex frmmain.h)
 -the main form .cpp file (ex frmmain.cpp)
 
-follow the video to create the project, place widgets on your form,
+follow the video to create the project, edit the .pro file, place widgets on your form,
 and have Qt Creator write as much of the code for you as possible,
 then copy/paste ONLY THE ADDITIONAL PORTIONS from the code below:
 
@@ -18,59 +17,8 @@ lblProcessed (QLabel)
 btnPauseOrResume (QPushButton)
 txtXYRadius (QPlainTextEdit)
 
-####################################################################################################
-## RedBallTrackerQt.pro (1 of 3) ###################################################################
-####################################################################################################
-
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-05-24T13:55:10
-#
-#-------------------------------------------------
-
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = QtCannyStill1
-TEMPLATE = app
-
-
-SOURCES += main.cpp\
-        frmmain.cpp
-
-HEADERS  += frmmain.h
-
-FORMS    += frmmain.ui
-
-INCLUDEPATH += C:\\OpenCV-2.4.11\\opencv\\build\\include
-
-LIBS += -LC:\\OpenCV-2.4.11\\mybuild\\lib\\Debug \
-    -lopencv_calib3d2411d \
-    -lopencv_contrib2411d \
-    -lopencv_core2411d \
-    -lopencv_features2d2411d \
-    -lopencv_flann2411d \
-    -lopencv_gpu2411d \
-    -lopencv_haartraining_engined \
-    -lopencv_highgui2411d \
-    -lopencv_imgproc2411d \
-    -lopencv_legacy2411d \
-    -lopencv_ml2411d \
-    -lopencv_nonfree2411d \
-    -lopencv_objdetect2411d \
-    -lopencv_ocl2411d \
-    -lopencv_photo2411d \
-    -lopencv_stitching2411d \
-    -lopencv_superres2411d \
-    -lopencv_ts2411d \
-    -lopencv_video2411d \
-    -lopencv_videostab2411d
-
-# Note: it is recommended to leave a blank line at the end of your .pro file
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// frmmain.h (2 of 3) /////////////////////////////////////////////////////////////////////////////
+// frmmain.h (1 of 2) /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifndef FRMMAIN_H
@@ -119,7 +67,7 @@ private:
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// frmmain.cpp (3 of 3) ///////////////////////////////////////////////////////////////////////////
+// frmmain.cpp (2 of 2) ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "frmmain.h"
