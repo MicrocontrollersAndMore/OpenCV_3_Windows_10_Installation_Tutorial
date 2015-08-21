@@ -1,9 +1,11 @@
 // CannyWebcam.cs
 //
+// Emgu CV 3.0.0
+//
 // put this code in your main form, for example frmMain.cs
 // add the following components to your form:
 //
-// TableLayoutPanel1 (TableLayoutPanel) (name does not really matter for this, we will not need to refer to it in code
+// tableLayoutPanel (TableLayoutPanel) (name does not really matter for this, we will not need to refer to it in code
 // ibOriginal (Emgu ImageBox)
 // ibCanny (Emgu ImageBox)
 //
@@ -27,63 +29,60 @@ using Emgu.CV.Structure;        //
 using Emgu.CV.UI;               //
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-namespace CannyWebcam
-{
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    public partial class frmMain : Form
-    {
-        // member variables ///////////////////////////////////////////////////////////////////////
-        Capture capWebcam;                      // Capture object to use with webcam
+namespace CannyWebcam1 {
 
-        Image<Bgr, Byte> imgOriginal;           // input image
-        Image<Gray, Byte> imgGrayscale;         // grayscale of input image
-        Image<Gray, Byte> imgBlurred;           // intermediate blured image
-        Image<Gray, Byte> imgCanny;             // Canny edge image
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    public partial class frmMain : Form {
+
+        // member variables ///////////////////////////////////////////////////////////////////////
+        Capture capWebcam;
 
         // constructor ////////////////////////////////////////////////////////////////////////////
-        public frmMain()
-        {
+        public frmMain() {
             InitializeComponent();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void frmMain_Load(object sender, EventArgs e) 
-        {
-            try
-            {
-                capWebcam = new Capture();              // associate the capture object to the default webcam
-            }
-            catch (Exception ex)                        // catch error if unsuccessful
-            {                                           // show error via message box
+        private void frmMain_Load(object sender, EventArgs e) {
+            try {
+                capWebcam = new Capture(0);
+            } catch(Exception ex) {
                 MessageBox.Show("unable to read from webcam, error: " + Environment.NewLine + Environment.NewLine +
                                 ex.Message + Environment.NewLine + Environment.NewLine +
                                 "exiting program");
-                Environment.Exit(0);                    // and exit program
+                Environment.Exit(0);
+                return;
             }
             Application.Idle += processFrameAndUpdateGUI;       // add process image function to the application's list of tasks
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        void processFrameAndUpdateGUI(object sender, EventArgs arg)
-        {
-            imgOriginal = capWebcam.QueryFrame();               // get next frame from the webcam
+        void processFrameAndUpdateGUI(object sender, EventArgs arg) {
+            Mat imgOriginal;
 
-            if (imgOriginal == null)                            // if we did not get a frame
-            {                                                   // show error via message box
-                MessageBox.Show("unable to read from webcam" + Environment.NewLine + Environment.NewLine +
+            imgOriginal = capWebcam.QueryFrame();
+
+            if(imgOriginal == null) {
+                MessageBox.Show("unable to read frame from webcam" + Environment.NewLine + Environment.NewLine +
                                 "exiting program");
-                Environment.Exit(0);                            // and exit program
+                Environment.Exit(0);
+                return;
             }
-            imgGrayscale = imgOriginal.Convert<Gray, Byte>();       // convert to grayscale
-            imgBlurred = imgGrayscale.SmoothGaussian(5);            // blur
 
-            double dblCannyThresh = 150.0;                          // declare params for call to Canny
-            double dblCannyThreshLinking = 75.0;                    //
+            Mat imgGrayscale = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
+            Mat imgBlurred = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
+            Mat imgCanny = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
 
-            imgCanny = imgBlurred.Canny(dblCannyThresh, dblCannyThreshLinking);     // get Canny edges
+            CvInvoke.CvtColor(imgOriginal, imgGrayscale, ColorConversion.Bgr2Gray);
 
-            ibOriginal.Image = imgOriginal;             // update image boxes
-            ibCanny.Image = imgCanny;                   //
+            CvInvoke.GaussianBlur(imgGrayscale, imgBlurred, new Size(5, 5), 1.5);
+
+            CvInvoke.Canny(imgBlurred, imgCanny, 100, 200);
+
+            ibOriginal.Image = imgOriginal;
+            ibCanny.Image = imgCanny;
         }
-    }
-}
+        
+    }   // end class
+
+}   // end namespace

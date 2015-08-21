@@ -39,7 +39,7 @@ Public Class frmMain
         Dim imgOriginal As Mat
 
         Try
-            imgOriginal = New Mat(ofdOpenFile.FileName, CvEnum.LoadImageType.Color)
+            imgOriginal = New Mat(ofdOpenFile.FileName, LoadImageType.Color)
         Catch ex As Exception                                                       'if error occurred
             lblChosenFile.Text = "unable to open image, error: " + ex.Message       'show error message on label
             Return                                                                  'and exit function

@@ -1,5 +1,7 @@
 // CannyStill.cs
 //
+// Emgu CV 3.0.0
+//
 // put this code in your main form, for example frmMain.cs
 // add the following components to your form:
 //
@@ -29,86 +31,55 @@ using Emgu.CV.Structure;        //
 using Emgu.CV.UI;               //
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-namespace CannyStill1
-{
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    public partial class frmMain : Form
-    {
-        // member variables ///////////////////////////////////////////////////////////////////////
-        Image<Bgr, Byte> imgOriginal;           // input image
-        Image<Gray, Byte> imgGrayscale;         // grayscale of input image
-        Image<Gray, Byte> imgBlurred;           // intermediate blured image
-        Image<Gray, Byte> imgCanny;             // Canny edge image
+namespace CannyStill1 {
 
-        int intButtonAndLabelHorizPadding;      //
-        int intImageBoxesHorizPadding;          // original component padding for component resizing
-        int intImageBoxesVertPadding;           //
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    public partial class frmMain : Form {
 
         // constructor ////////////////////////////////////////////////////////////////////////////
-        public frmMain()
-        {
+        public frmMain() {
             InitializeComponent();
-
-            intButtonAndLabelHorizPadding = this.Width - btnOpenFile.Width - lblChosenFile.Width;       //
-            intImageBoxesHorizPadding = this.Width - ibOriginal.Width - ibCanny.Width;                  // get original padding for component resizing later
-            intImageBoxesVertPadding = this.Height - btnOpenFile.Height - ibOriginal.Height;            //
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void frmMain_Resize(object sender, EventArgs e)
-        {
-            lblChosenFile.Width = this.Width - btnOpenFile.Width - intButtonAndLabelHorizPadding;       // resize label
-
-            ibOriginal.Width = Convert.ToInt32((this.Width - intImageBoxesHorizPadding) / 2);           // resize image box widths
-            ibCanny.Width = ibOriginal.Width;                                                           //
-
-            ibCanny.Left = ibOriginal.Width + Convert.ToInt32(intImageBoxesHorizPadding * (1.0 / 2.5));     // update x position for Canny image box
-
-            ibOriginal.Height = this.Height - btnOpenFile.Height - intImageBoxesVertPadding;            // resize image box heights
-            ibCanny.Height = ibOriginal.Height;                                                         //
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void btnOpenFile_Click(object sender, EventArgs e)
-        {
+        private void btnOpenFile_Click(object sender, EventArgs e) {
             DialogResult drChosenFile;
 
-            drChosenFile = ofdOpenFile.ShowDialog();            // open file dialog
+            drChosenFile = ofdOpenFile.ShowDialog();
 
-            if (drChosenFile != System.Windows.Forms.DialogResult.OK || ofdOpenFile.FileName == "")     // if user chose Cancel or filename is blank . . .
-            {
-                lblChosenFile.Text = "file not chosen";             // show error message on label
-                return;                                             // and exit function
+            if (drChosenFile != DialogResult.OK || ofdOpenFile.FileName == "") {
+                lblChosenFile.Text = "file not chosen";
+                return;
             }
 
-            try
-            {
-                imgOriginal = new Image<Bgr, byte>(ofdOpenFile.FileName);       // open image
-            }
-            catch (Exception exception)                                         // if error occurred
-            {
-                lblChosenFile.Text = "unable to open image, error: " + exception.Message;       // show error message on label
-                return;                                                                         // and exit function
-            }
+            Mat imgOriginal;
 
-            if (imgOriginal == null)                                    // if image could not be opened
-            {
-                lblChosenFile.Text = "unable to open image";            // show error message on label
-                return;                                                 // and exit function
+            try {
+                imgOriginal = new Mat(ofdOpenFile.FileName, LoadImageType.Color);
+            } catch (Exception ex) {
+                lblChosenFile.Text = "unable to open image, error: " + ex.Message;
+                return;
             }
 
-            imgGrayscale = imgOriginal.Convert<Gray, Byte>();           // convert to grayscale
-            imgBlurred = imgGrayscale.SmoothGaussian(5);                // blur
+            if (imgOriginal == null) {
+                lblChosenFile.Text = "unable to open image";
+                return;
+            }
 
-            double dblCannyThresh = 180.0;                              // declare params for call to Canny
-            double dblCannyThreshLinking = 120.0;                       //
+            Mat imgGrayscale = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
+            Mat imgBlurred = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
+            Mat imgCanny = new Mat(imgOriginal.Size, DepthType.Cv8U, 1);
 
-            imgCanny = imgBlurred.Canny(dblCannyThresh, dblCannyThreshLinking);         // get Canny edges
+            CvInvoke.CvtColor(imgOriginal, imgGrayscale, ColorConversion.Bgr2Gray);
 
-            ibOriginal.Image = imgOriginal;                 // update image boxes
-            ibCanny.Image = imgCanny;                       //
+            CvInvoke.GaussianBlur(imgGrayscale, imgBlurred, new Size(5, 5), 1.5);
 
+            CvInvoke.Canny(imgBlurred, imgCanny, 100, 200);
+
+            ibOriginal.Image = imgOriginal;
+            ibCanny.Image = imgCanny;
         }
 
-    }
-}
+    }   // end class
+
+}   // end namespace

@@ -6,7 +6,7 @@
 '
 'add the following components to your form:
 'ibOriginal (Emgu ImageBox)
-'ibProcessed (Emgu ImageBox)
+'ibThresh (Emgu ImageBox)
 'btnPauseOrResume (Button)
 'txtXYRadius (TextBox)
 '
@@ -67,8 +67,8 @@ Public Class frmMain
 
         CvInvoke.CvtColor(imgOriginal, imgHSV, ColorConversion.Bgr2Hsv)
 
-        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(0, 135, 135)), New ScalarArray(New MCvScalar(30, 255, 255)), imgThreshLow)
-        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(150, 135, 135)), New ScalarArray(New MCvScalar(179, 255, 255)), imgThreshHigh)
+        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(0, 155, 155)), New ScalarArray(New MCvScalar(15, 255, 255)), imgThreshLow)
+        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(160, 155, 155)), New ScalarArray(New MCvScalar(179, 255, 255)), imgThreshHigh)
         
         CvInvoke.Add(imgThreshLow, imgThreshHigh, imgThresh)
 
@@ -90,7 +90,7 @@ Public Class frmMain
 		    txtXYRadius.ScrollToCaret()             'scroll down in text box so most recent line added (at the bottom) will be shown
             
             CvInvoke.Circle(imgOriginal, New Point(CInt(circle.Center.X), CInt(circle.Center.Y)), CInt(circle.Radius), New MCvScalar(0, 0, 255), 2)
-            CvInvoke.Circle(imgOriginal, New Point(CInt(circle.Center.X), CInt(circle.Center.Y)), 3, New MCvScalar(0, 255, 0), 3)
+            CvInvoke.Circle(imgOriginal, New Point(CInt(circle.Center.X), CInt(circle.Center.Y)), 3, New MCvScalar(0, 255, 0), -1)
             
         Next
         ibOriginal.Image = imgOriginal              'update image boxes on form

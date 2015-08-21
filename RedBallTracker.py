@@ -24,8 +24,8 @@ def main():
 
         imgHSV = cv2.cvtColor(imgOriginal, cv2.COLOR_BGR2HSV)
 
-        imgThreshLow = cv2.inRange(imgHSV, (0, 135, 135), (30, 255, 255))
-        imgThreshHigh = cv2.inRange(imgHSV, (150, 135, 135), (179, 255, 255))
+        imgThreshLow = cv2.inRange(imgHSV, (0, 155, 155), (15, 255, 255))
+        imgThreshHigh = cv2.inRange(imgHSV, (160, 155, 155), (179, 255, 255))
 
         imgThresh = cv2.add(imgThreshLow, imgThreshHigh)
 
@@ -47,11 +47,11 @@ def main():
             # end for
         # end if
 
-        cv2.namedWindow("Original", cv2.WINDOW_AUTOSIZE)            # create windows, use WINDOW_AUTOSIZE for a fixed window size
-        cv2.namedWindow("Thresh", cv2.WINDOW_AUTOSIZE)           # or use WINDOW_NORMAL to allow window resizing
+        cv2.namedWindow("imgOriginal", cv2.WINDOW_AUTOSIZE)            # create windows, use WINDOW_AUTOSIZE for a fixed window size
+        cv2.namedWindow("imgThresh", cv2.WINDOW_AUTOSIZE)           # or use WINDOW_NORMAL to allow window resizing
 
-        cv2.imshow("Original", imgOriginal)                 # show windows
-        cv2.imshow("Thresh", imgThresh)
+        cv2.imshow("imgOriginal", imgOriginal)                 # show windows
+        cv2.imshow("imgThresh", imgThresh)
     # end while
 
     cv2.destroyAllWindows()                     # remove windows from memory

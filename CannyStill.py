@@ -19,11 +19,11 @@ def main():
     
     imgCanny = cv2.Canny(imgBlurred, 100, 200)                          # get Canny edges
 
-    cv2.namedWindow("Original", cv2.WINDOW_AUTOSIZE)        # create windows, use WINDOW_AUTOSIZE for a fixed window size
-    cv2.namedWindow("Canny", cv2.WINDOW_AUTOSIZE)           # or use WINDOW_NORMAL to allow window resizing
+    cv2.namedWindow("imgOriginal", cv2.WINDOW_AUTOSIZE)        # create windows, use WINDOW_AUTOSIZE for a fixed window size
+    cv2.namedWindow("imgCanny", cv2.WINDOW_AUTOSIZE)           # or use WINDOW_NORMAL to allow window resizing
 
-    cv2.imshow("Original", imgOriginal)         # show windows
-    cv2.imshow("Canny", imgCanny)
+    cv2.imshow("imgOriginal", imgOriginal)         # show windows
+    cv2.imshow("imgCanny", imgCanny)
 
     cv2.waitKey()                               # hold windows open until user presses a key
 
