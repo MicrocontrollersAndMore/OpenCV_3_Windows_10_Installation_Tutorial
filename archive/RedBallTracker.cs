@@ -58,7 +58,6 @@ namespace RedBallTracker1 {
                 return;
             }
             Application.Idle += processFrameAndUpdateGUI;       // add process image function to the application's list of tasks
-            blnCapturingInProcess = true;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -83,8 +82,8 @@ namespace RedBallTracker1 {
 
             CvInvoke.CvtColor(imgOriginal, imgHSV, ColorConversion.Bgr2Hsv);
 
-            CvInvoke.InRange(imgHSV, new ScalarArray(new MCvScalar(0, 155, 155)), new ScalarArray(new MCvScalar(18, 255, 255)), imgThreshLow);
-            CvInvoke.InRange(imgHSV, new ScalarArray(new MCvScalar(165, 155, 155)), new ScalarArray(new MCvScalar(179, 255, 255)), imgThreshHigh);
+            CvInvoke.InRange(imgHSV, new ScalarArray(new MCvScalar(0, 155, 155)), new ScalarArray(new MCvScalar(15, 255, 255)), imgThreshLow);
+            CvInvoke.InRange(imgHSV, new ScalarArray(new MCvScalar(160, 155, 155)), new ScalarArray(new MCvScalar(179, 255, 255)), imgThreshHigh);
 
             CvInvoke.Add(imgThreshLow, imgThreshHigh, imgThresh);
 

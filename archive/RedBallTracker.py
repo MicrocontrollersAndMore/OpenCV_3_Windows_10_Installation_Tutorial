@@ -24,8 +24,8 @@ def main():
 
         imgHSV = cv2.cvtColor(imgOriginal, cv2.COLOR_BGR2HSV)
 
-        imgThreshLow = cv2.inRange(imgHSV, (0, 155, 155), (18, 255, 255))
-        imgThreshHigh = cv2.inRange(imgHSV, (165, 155, 155), (179, 255, 255))
+        imgThreshLow = cv2.inRange(imgHSV, (0, 155, 155), (15, 255, 255))
+        imgThreshHigh = cv2.inRange(imgHSV, (160, 155, 155), (179, 255, 255))
 
         imgThresh = cv2.add(imgThreshLow, imgThreshHigh)
 

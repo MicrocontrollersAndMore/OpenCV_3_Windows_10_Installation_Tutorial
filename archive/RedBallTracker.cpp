@@ -35,8 +35,8 @@ int main() {
 
 		cv::cvtColor(imgOriginal, imgHSV, CV_BGR2HSV);
 
-		cv::inRange(imgHSV, cv::Scalar(0, 155, 155), cv::Scalar(18, 255, 255), imgThreshLow);
-		cv::inRange(imgHSV, cv::Scalar(165, 155, 155), cv::Scalar(179, 255, 255), imgThreshHigh);
+		cv::inRange(imgHSV, cv::Scalar(0, 135, 135), cv::Scalar(30, 255, 255), imgThreshLow);
+		cv::inRange(imgHSV, cv::Scalar(150, 135, 135), cv::Scalar(179, 255, 255), imgThreshHigh);
 
 		cv::add(imgThreshLow, imgThreshHigh, imgThresh);
 

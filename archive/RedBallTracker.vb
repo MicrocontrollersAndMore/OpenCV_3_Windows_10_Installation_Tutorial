@@ -4,8 +4,6 @@
 '
 'put this code in your main form, for example frmMain.vb
 '
-'tlpOuter (TableLayoutPanel)
-'tlpInner (TableLayoutPanel)
 'add the following components to your form:
 'ibOriginal (Emgu ImageBox)
 'ibThresh (Emgu ImageBox)
@@ -44,7 +42,7 @@ Public Class frmMain
         End Try
         
         AddHandler Application.Idle, New EventHandler(AddressOf Me.ProcessFrameAndUpdateGUI)        'add process image function to the application's list of tasks
-        blnCapturingInProcess = True
+	    blnCapturingInProcess = True
     End Sub
     
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -69,8 +67,8 @@ Public Class frmMain
 
         CvInvoke.CvtColor(imgOriginal, imgHSV, ColorConversion.Bgr2Hsv)
 
-        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(0, 155, 155)), New ScalarArray(New MCvScalar(18, 255, 255)), imgThreshLow)
-        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(165, 155, 155)), New ScalarArray(New MCvScalar(179, 255, 255)), imgThreshHigh)
+        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(0, 155, 155)), New ScalarArray(New MCvScalar(15, 255, 255)), imgThreshLow)
+        CvInvoke.InRange(imgHSV, New ScalarArray(New MCvScalar(160, 155, 155)), New ScalarArray(New MCvScalar(179, 255, 255)), imgThreshHigh)
         
         CvInvoke.Add(imgThreshLow, imgThreshHigh, imgThresh)
 
