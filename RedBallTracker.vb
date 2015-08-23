@@ -4,9 +4,9 @@
 '
 'put this code in your main form, for example frmMain.vb
 '
+'add the following components to your form:
 'tlpOuter (TableLayoutPanel)
 'tlpInner (TableLayoutPanel)
-'add the following components to your form:
 'ibOriginal (Emgu ImageBox)
 'ibThresh (Emgu ImageBox)
 'btnPauseOrResume (Button)
