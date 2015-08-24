@@ -11,9 +11,9 @@ Parts 1 - 4 cover the following:
 3) Emgu CV (Visual Basic.NET and C#)
 4) OpenCV compile from source, configuration with Visual Studio 2015 and Qt, and a Qt GUI program
 
-Part 1 video: (link here when done)
-Part 2 video: (link here when done)
-Part 3 video: (link here when done)
-Part 4 video: (link here when done)
+Part 1 video: https://www.youtube.com/watch?v=et7tLwpsADw
+Part 2 video: https://www.youtube.com/watch?v=hMXldo27L8c
+Part 3 video: https://www.youtube.com/watch?v=7iyfJ-YaKvw
+Part 4 video: http://youtu.be/akAAAvGyLn0
 
 Enjoy !!
