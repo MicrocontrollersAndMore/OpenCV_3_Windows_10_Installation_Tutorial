@@ -29,8 +29,8 @@ int main() {
 
     cv::Canny(imgBlurred,           // input image
         imgCanny,                   // output image
-        100,                        // low threshold
-        200);                       // high threshold
+        82,                         // low threshold
+        164);                       // high threshold
 
                                     // declare windows
     cv::namedWindow("imgOriginal", CV_WINDOW_AUTOSIZE);     // note: you can use CV_WINDOW_NORMAL which allows resizing the window
