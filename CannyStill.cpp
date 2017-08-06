@@ -1,21 +1,18 @@
 // CannyStill.cpp
 
-#include<opencv2/core/core.hpp>
-#include<opencv2/highgui/highgui.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
+#include<opencv2/opencv.hpp>
 
 #include<iostream>
 #include<conio.h>           // may have to modify this line if not using Windows
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 int main() {
-
     cv::Mat imgOriginal;        // input image
     cv::Mat imgGrayscale;       // grayscale of input image
     cv::Mat imgBlurred;         // intermediate blured image
     cv::Mat imgCanny;           // Canny edge image
 
-    imgOriginal = cv::imread("image.jpg");          // open image
+    imgOriginal = cv::imread("image.png");          // open image
 
     if (imgOriginal.empty()) {                                  // if unable to open image
         std::cout << "error: image not read from file\n\n";     // show error message on command line
@@ -35,7 +32,7 @@ int main() {
         100,                        // low threshold
         200);                       // high threshold
 
-                                        // declare windows
+                                    // declare windows
     cv::namedWindow("imgOriginal", CV_WINDOW_AUTOSIZE);     // note: you can use CV_WINDOW_NORMAL which allows resizing the window
     cv::namedWindow("imgCanny", CV_WINDOW_AUTOSIZE);        // or CV_WINDOW_AUTOSIZE for a fixed size window matching the resolution of the image
                                                             // CV_WINDOW_AUTOSIZE is the default
@@ -46,7 +43,4 @@ int main() {
 
     return(0);
 }
-
-
-
 
